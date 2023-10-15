@@ -1,11 +1,11 @@
 ICXX = icpc
 GCXX = g++
 
-ICXXFLAGS= -O0
-GCXXFLAGS=-O3 -march=native -ffast-math
+ICXXFLAGS = -O0
+GCXXFLAGS = -O0
 ICXXOMPFLAG = -qopenmp
 GCXXOMPFLAG = -fopenmp
-IOPTFLAGS = -g -qopt-report=5 -qopt-report-phase=vec -inline-level=0 -qopt-report-filter="nbody.cc,56-111" -qopt-report-file=$@.optrpt
+IOPTFLAGS = -g -qopt-report=5 -qopt-report-phase=vec -inline-level=0 -qopt-report-filter="nbody.cc,56-111" -qopt-report-file=vec.report
 GOPTFLAGS = -g 
 
 IOBJECTS = nbody.oicc
@@ -52,4 +52,4 @@ run-gcc: app-GCC
 	./app-GCC 65536
 
 clean:
-	rm -f $(IOBJECTS) $(GOBJECTS) $(TARGET) *.optrpt
+	rm -f $(IOBJECTS) $(GOBJECTS) $(TARGET) vec.report
