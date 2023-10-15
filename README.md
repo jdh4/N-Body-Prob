@@ -181,6 +181,44 @@ To see all of the compiler options:
 $ man icpc
 ```
 
+### Preventing data types conversions
+
+We see from vec.report the following:
+
+```
+remark #15417: vectorization support: number of FP up converts: single precision to double precision 2   [ nbody.cc(94,32) ]
+remark #15418: vectorization support: number of FP down converts: double precision to single precision 1   [ nbody.cc(94,32) ]
+```
+
+We can turn off the casting by add the switch `–DNo_FP_Conv`. Modify `Makefile` as follows:
+
+```
+ICXXFLAGS = -O2 -xCORE-AVX512 -qopt-zmm-usage=high -DNo_FP_Conv
+```
+
+Then run `make clean`, `make` and run the code. Does the vectorization report change? Do you see a speed-up?
+
+### Structure of Arrays
+
+Let's address the issue with non-unit stride by adding the switch `-DSoA`. Modify `Makefile` as follows:
+
+```
+ICXXFLAGS = -O2 -xCORE-AVX512 -qopt-zmm-usage=high -DNo_FP_Conv -DSoA
+```
+
+Then run `make clean`, `make` and run the code. Does the vectorization report change? Do you see a speed-up?
+
+### Memory alignment
+
+Let's address the issue with memory alignment by adding the switch`-DOMP_SIMD -DAligned`.
+
+```
+ICXXFLAGS = -O2 -xCORE-AVX512 -qopt-zmm-usage=high -DNo_FP_Conv -DSoA -DOMP_SIMD -DAligned
+```
+
+Then run `make clean`, `make` and run the code. Does the vectorization report change? Do you see a speed-up?
+
+
 ## Troubleshooting
 
 If you see the error below then the horizontal line character before 'xCORE' is not a hyphen. The solution is to replace it with a hyphen.
