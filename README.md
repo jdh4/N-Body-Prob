@@ -60,6 +60,7 @@ rm nbody.oicc
 Inspect the vectorization report which is uninteresting for this case since vectorization is turned off:
 
 ```
+$ cat vec.report
 Intel(R) Advisor can now assist with vectorization and show optimization
   report messages with your source code.
 See "https://software.intel.com/en-us/intel-advisor-xe" for details.
@@ -99,3 +100,62 @@ We see that our baseline performance is 0.7 GFLOP/s.
 
 For this exercise, the run times are short so it is okay to use the login node. In general, one should submit batch jobs [using Slurm](https://researchcomputing.princeton.edu/support/knowledge-base/slurm).
 
+In preparation for the next run, remove the executable and other files:
+
+```
+$ make clean
+```
+
+### 128-bit Vectorization
+
+Let's repeat the procedure with 128-bit vectorization:
+
+```
+$ make clean
+$ vim Makefile
+...
+ICXXFLAGS = -O2
+...
+```
+
+Then compile the code, inspect the report, and then run the code:
+
+```
+$ make app-ICC
+$ cat vec.report
+...
+$ ./app-ICC
+```
+
+What stands out from the vectorization report? Do the variables in nbody.cc use single or double precision? Does the code run faster when compiled with `-O2`?
+
+### 256-bit Vectorization
+
+Now let's try with 256-bit vectorization:
+
+```
+$ make clean
+$ vim Makefile
+...
+ICXXFLAGS = -O2 -xCORE-AVX2
+...
+```
+
+Then compile the code, inspect the report, and then run the code:
+
+```
+$ make app-ICC
+$ cat vec.report
+...
+$ ./app-ICC
+```
+
+In the vectorization report, what is the vector length? Does the value make sense? Did the "estimated potential speedup" increase over 128-bit vectorization?
+
+## Troubleshooting
+
+If you see the error below then the horizontal line character before 'xCORE' is not a hyphen. The solution is to replace it with a hyphen.
+
+```
+icpc: error #10236: File not found:  '–xCORE-AVX2'
+```
