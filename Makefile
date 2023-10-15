@@ -11,7 +11,7 @@ GOPTFLAGS = -g
 IOBJECTS = nbody.oicc
 GOBJECTS = nbody.ogcc
 
-TARGET=app-ICC app-GCC
+TARGET=app-ICC
 
 
 .SUFFIXES: .oicc .cc .ogcc 
