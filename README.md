@@ -1,6 +1,8 @@
 # Performance and Vectorization
 
-```
+Run the commands below to obtain the code:
+
+```bash
 $ ssh <YourNetID>@adroit.princeton.edu
 $ cd /scratch/network/$USER
 $ git clone https://github.com/jdh4/N-Body-Prob.git
@@ -20,24 +22,24 @@ Use a text editor to inspect the source code:
 $ vim nbody.cc  # or emacs or nano
 ```
 
-The source code features blocks with `#ifdef ... #else ... #endif`. These are directives to the preprocessor that allow us to quickly include or exclude blocks of code. The preprocessor is the tool that runs before the compiler.
+The source code features lines such as `#ifdef ... #else ... #endif`. These are directives to the preprocessor that allow us to quickly include or exclude blocks of code. The preprocessor is the tool that runs before the compiler.
 
-For this exercise, you will change the compilation settings to investigate the effect of different compiler options and code design.
+For this exercise, you will change the compilation settings to investigate the effect of vectorization.
 
-Baseline
+### Baseline (no vectorization, no optimization)
 
-We will use the Intel compiler on Adroit.
-
-Open `Makefile` with a text editor and make sure `ICXXFLAGS` has the following setting:
+Let's first compile and run the code with vectorization and optimization turned off. Open `Makefile` with a text editor and make sure `ICXXFLAGS` has the following setting:
 
 ```
 $ vim Makefile
+...
 ICXXFLAGS= -O0
+...
 ```
 
 Set the software environment by loading the Intel compiler module:
 
-```
+```bash
 $ module purge
 $ module load intel/19.1
 ```
@@ -53,6 +55,18 @@ icpc -c -O0 -qopenmp -g -qopt-report=5 -qopt-report-phase=vec -inline-level=0 -q
 Linking the ICC executable:
 icpc -O0 -qopenmp -o app-ICC nbody.oicc
 rm nbody.oicc
+```
+
+Inspect the vectorization report which is uninteresting for this case since vectorization is turned off:
+
+```
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 19.1.1.217 Build 20200306
+
+Compiler options: -c -O0 -qopenmp -g -qopt-report=5 -qopt-report-phase=vec -inline-level=0 -qopt-report-filter=nbody.cc,56-111 -qopt-report-file=vec.report -o nbody.oicc
 ```
 
 Finally, run the job:
@@ -80,6 +94,8 @@ Average performance:             0.7 +- 0.0 GFLOP/s
 -----------------------------------------------------
 * - warm-up, not included in average
 ```
+
+We see that our baseline performance is 0.7 GFLOP/s.
 
 For this exercise, the run times are short so it is okay to use the login node. In general, one should submit batch jobs [using Slurm](https://researchcomputing.princeton.edu/support/knowledge-base/slurm).
 
