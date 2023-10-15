@@ -3,8 +3,8 @@ Ian A. Cosden (icosden@princeton.edu)
 Bei Wang (beiwang@princeton.edu)
 
 Modified with Permission from Colfax International for the sole 
-use of the attendees of the PICSciE mini-course "Introduction to 
-Performance Tuning and Optimization" 
+use of the attendees of the PICSciE mini-course "Performance and
+Vectorization" 
 */
 
 /* Copyright (c) 2013-2015, Colfax International. All Right Reserved.
