@@ -47,7 +47,7 @@ $ module load intel/19.1
 Compile the C++ code by running the `make` on the `app-ICC` target:
 
 ```
-$ make app-ICC
+$ make
 
 Compiling a ICC object file:
 icpc -c -O0 -qopenmp -g -qopt-report=5 -qopt-report-phase=vec -inline-level=0 -qopt-report-filter="nbody.cc,56-111" -qopt-report-file=nbody.oicc.optrpt -o "nbody.oicc" "nbody.cc"
@@ -118,10 +118,10 @@ ICXXFLAGS = -O2
 ...
 ```
 
-Then compile the code, inspect the report, and then run the code:
+Compile the code, inspect the report, and then run the code:
 
 ```
-$ make app-ICC
+$ make
 $ cat vec.report
 ...
 $ ./app-ICC
@@ -141,16 +141,45 @@ ICXXFLAGS = -O2 -xCORE-AVX2
 ...
 ```
 
-Then compile the code, inspect the report, and then run the code:
+Compile the code, inspect the report, and then run the code:
 
 ```
-$ make app-ICC
+$ make
 $ cat vec.report
 ...
 $ ./app-ICC
 ```
 
 In the vectorization report, what is the vector length? Does the value make sense? Did the "estimated potential speedup" increase over 128-bit vectorization?
+
+### AVX-512
+
+Now let's try with 512-bit vectorization:
+
+```
+$ make clean
+$ vim Makefile
+...
+ICXXFLAGS = -O2 -xCORE-AVX512 -qopt-zmm-usage=high
+...
+```
+
+Compile the code, inspect the report, and then run the code:
+
+```
+$ make
+$ cat vec.report
+...
+$ ./app-ICC
+```
+
+In the vectorization report, what is the vector length? Does the value make sense? Did the "estimated potential speedup" increase over 128-bit vectorization?
+
+To see all of the compiler options:
+
+```
+$ man icpc
+```
 
 ## Troubleshooting
 
