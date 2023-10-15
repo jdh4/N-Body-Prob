@@ -3,7 +3,7 @@
 # submits job script 'submit.slurm' to SLURM scheduler 
 # then waits for it to finish
 
-jobid=`sbatch submit.slurm | sed 's/[^0-9]//g'`
+jobid=`sbatch submit.sh | sed 's/[^0-9]//g'`
 echo "Submitted batch job $jobid"
 
 #test if finished
