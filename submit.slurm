@@ -1,14 +1,16 @@
 #!/bin/bash
-#SBATCH -N 1 #one node
-#SBATCH -n 1 #one task
-#SBATCH -t 00:05:00 #maximum wall time of 5 minutes
+#SBATCH --job-name=nbody         # create a short name for your job
+#SBATCH --nodes=1                # node count
+#SBATCH --ntasks=1               # total number of tasks across all nodes
+#SBATCH --cpus-per-task=1        # cpu-cores per task (>1 if multi-threaded tasks)
+#SBATCH --mem=4G                 # memory per node
+#SBATCH --time=00:05:00          # total run time limit (HH:MM:SS)
+#SBATCH --reservation=bootcamp1  # REMOVE THIS WHEN BOOTCAMP IS NOT IN SESSION
 
-#load environment modules that correspond to the build environment
-#and puts VTune in path
+# set the software environment
+module purge
+module load intel/19.1
+module load intel-advisor/oneapi
 
-module load intel/19.1 intel-advisor/oneapi
-
-#run command line Advisor, with Survey and Roofline analysis
+# run advisor in command-line mode on the executable app-ICC
 advisor --collect=roofline -enable-cache-simulation --project-dir=./nbody-advisor -- ./app-ICC
-
-
