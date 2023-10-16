@@ -230,6 +230,8 @@ $ advisor --collect=roofline -enable-cache-simulation --project-dir=./nbody-advi
 $ advixe-gui nbody-advisor
 ```
 
+Make sure you launch `advixe-gui` on the same node that `advisor` was called.
+
 ## Troubleshooting
 
 If you see the error below then the horizontal line character before 'xCORE' is not a hyphen. The solution is to replace it with a hyphen.
