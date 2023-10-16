@@ -8,12 +8,13 @@ $ cd /scratch/network/$USER
 $ git clone https://github.com/jdh4/N-Body-Prob.git
 $ cd N-Body-Prob
 $ ls -l
-total 28
--rw-r--r--. 1 jdh4 cses 1222 Oct 15 13:06 Makefile
--rw-r--r--. 1 jdh4 cses 8288 Oct 15 13:14 nbody.cc
--rw-r--r--. 1 jdh4 cses   46 Oct 15 12:53 README.md
--rw-r--r--. 1 jdh4 cses  739 Oct 15 13:04 submit.slurm
--rwxr-xr-x. 1 jdh4 cses  307 Oct 15 13:06 submit_to_scheduler.sh
+total 36K
+-rw-r--r--. 1 jdh4 cses 1.2K Oct 16 09:19 Makefile
+-rw-r--r--. 1 jdh4 cses 6.8K Oct 16 09:19 README.md
+-rw-r--r--. 1 jdh4 cses 8.1K Oct 16 09:19 nbody.cc
+-rw-r--r--. 1 jdh4 cses  790 Oct 16 09:19 daxpy.c
+-rw-r--r--. 1 jdh4 cses  738 Oct 16 09:19 submit.sh
+-rwxr-xr-x. 1 jdh4 cses  306 Oct 16 09:19 run_via_slurm.sh
 ```
 
 Use a text editor to inspect the source code:
