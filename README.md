@@ -218,6 +218,17 @@ ICXXFLAGS = -O2 -xCORE-AVX512 -qopt-zmm-usage=high -DNo_FP_Conv -DSoA -DOMP_SIMD
 
 Then run `make clean`, `make` and run the code. Does the vectorization report change? Do you see a speed-up?
 
+## Roofline Analysis
+
+Watch [this video](https://mediacentral.princeton.edu/media/t/1_5nhl128acd) to see how to conduct a roofline analysis on Adroit. After starting a graphical desktop on `adroit-vis`, run these commands in a terminal:
+
+```bash
+$ cd /scratch/network/$USER/N-Body-Prob
+$ module load intel/19.1 intel-advisor/oneapi
+$ make
+$ advisor --collect=roofline -enable-cache-simulation --project-dir=./nbody-advisor -- ./app-ICC
+$ advixe-gui nbody-advisor
+```
 
 ## Troubleshooting
 
