@@ -20,7 +20,7 @@ total 36K
 Use a text editor to inspect the source code:
 
 ```
-$ vim nbody.cc  # or emacs or nano
+$ nano nbody.cc    # or vim or emacs or vs code
 ```
 
 The source code features lines such as `#ifdef ... #else ... #endif`. These are directives to the preprocessor that allow us to quickly include or exclude blocks of code. The preprocessor is the tool that runs before the compiler.
@@ -32,7 +32,7 @@ For this exercise, you will change the compilation settings to investigate the e
 Let's first compile and run the code with vectorization and optimization turned off. Open `Makefile` with a text editor and make sure `ICXXFLAGS` has the following setting:
 
 ```
-$ vim Makefile
+$ nano Makefile
 ...
 ICXXFLAGS= -O0
 ...
@@ -99,7 +99,7 @@ Average performance:             0.7 +- 0.0 GFLOP/s
 
 We see that our baseline performance is 0.7 GFLOP/s.
 
-For this exercise, the run times are short so it is okay to use the login node. In general, one should submit batch jobs [using Slurm](https://researchcomputing.princeton.edu/support/knowledge-base/slurm).
+For this exercise, the run times are short so it is okay to use the login node. In general, one should submit batch jobs [using Slurm](https://researchcomputing.princeton.edu/support/knowledge-base/slurm). Additionally, for proper benchmarking one should allocate entires nodes. In general, nodes are shared between users.
 
 In preparation for the next run, remove the executable and other files:
 
@@ -113,7 +113,7 @@ Let's repeat the procedure with 128-bit vectorization:
 
 ```
 $ make clean
-$ vim Makefile
+$ nano Makefile
 ...
 ICXXFLAGS = -O2
 ...
